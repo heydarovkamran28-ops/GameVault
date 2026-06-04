@@ -1,346 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="google-site-verification" content="zEKSB92vwzmttmAM6XYsn-7S_7oOxAuSH2VOBAMmGc0" />
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameVault Pro Store</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GameVault</title>
 <style>
-    body {
-        margin: 0;
-        font-family: Inter;
-        background: #0b0c10;
-        color: white;
-    }
-
-    /* NAV */
-    nav {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 25px;
-        background: #111;
-        border-bottom: 1px solid #222;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-
-    nav a {
-        color: #aaa;
-        margin-left: 15px;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    nav a:hover {
-        color: white;
-    }
-
-    /* PAGES */
-    .page {
-        display: none;
-        padding: 40px;
-    }
-
-    .active {
-        display: block;
-    }
-
-    /* HERO */
-    .hero img {
-        width: 100%;
-        border-radius: 15px;
-        height: 350px;
-        object-fit: cover;
-        filter: brightness(0.6);
-    }
-
-    .hero {
-        position: relative;
-        margin-bottom: 20px;
-    }
-
-    .hero h1 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 40px;
-    }
-
-    /* GRID */
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #15171f;
-        padding: 15px;
-        border-radius: 10px;
-        border: 1px solid #222;
-    }
-
-    .btn {
-        width: 100%;
-        padding: 10px;
-        background: linear-gradient(90deg,#7c5cff,#00d4ff);
-        border: none;
-        color: white;
-        border-radius: 8px;
-        margin-top: 10px;
-        cursor: pointer;
-    }
-
-    /* SEARCH */
-    .search {
-        padding: 10px;
-        width: 250px;
-        border-radius: 8px;
-        border: 1px solid #333;
-        background: #1a1c24;
-        color: white;
-        margin-bottom: 20px;
-    }
-
-    /* CART */
-    #overlay {
-        display:none;
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,0.6);
-        z-index:99;
-    }
-
-    #cartBox {
-        position:fixed;
-        top:0;
-        right:-360px;
-        width:360px;
-        height:100%;
-        background:#111;
-        border-left:1px solid #333;
-        padding:20px;
-        transition:0.3s;
-        z-index:100;
-        display:flex;
-        flex-direction:column;
-    }
-
-    .item {
-        background:#1a1c24;
-        padding:10px;
-        border-radius:8px;
-        margin-bottom:10px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .checkout {
-        width:100%;
-        padding:12px;
-        background:linear-gradient(90deg,#7c5cff,#00d4ff);
-        border:none;
-        color:white;
-        border-radius:8px;
-        cursor:pointer;
-        font-weight:bold;
-    }
-
-    .qty {
-        display:flex;
-        align-items:center;
-        gap:5px;
-    }
-
-    .qty button {
-        background:#333;
-        color:white;
-        border:none;
-        padding:3px 7px;
-        cursor:pointer;
-    }
-
+body{margin:0;font-family:Arial,sans-serif;background:#171a21;color:#c7d5e0}
+nav{background:#1b2838;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
+nav a{color:#c7d5e0;text-decoration:none;margin-left:15px}
+.hero{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#1b2838,#2a475e)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding:20px}
+.card{background:#1b2838;border-radius:10px;padding:15px}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+button{background:#66c0f4;border:none;padding:10px 14px;border-radius:6px;cursor:pointer}
+.search{margin:20px;padding:10px;width:min(400px,90%)}
+#cart{position:fixed;right:0;top:0;width:320px;height:100%;background:#111;padding:15px;overflow:auto;display:none}
 </style>
 </head>
-
 <body>
-
 <nav>
-    <div><b>GameVault</b></div>
-    <div>
-        <a onclick="show('home')">Home</a>
-        <a onclick="show('products')">Products</a>
-        <a onclick="show('about')">About</a>
-        <a onclick="toggleCart()">Cart 🛒 (<span id="count">0</span>)</a>
-    </div>
+<div><b>GameVault</b></div>
+<div>
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#about">About</a>
+<a href="#" onclick="toggleCart()">Cart (<span id="count">0</span>)</a>
+</div>
 </nav>
 
-<!-- HOME -->
-<div class="page active" id="home">
-    <div class="hero">
-        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420">
-        <h1>GameVault Pro</h1>
-    </div>
-    <h2>Next Gen Gaming Store</h2>
+<section class="hero" id="home">
+<h1>GameVault Store</h1>
+<p>Steam-inspired gaming storefront</p>
+</section>
+
+<div style="text-align:center">
+<input class="search" id="search" placeholder="Search games..." onkeyup="searchGames()">
 </div>
 
-<!-- PRODUCTS -->
-<div class="page" id="products">
+<section id="games" class="grid">
+<div class="card"><img src="https://picsum.photos/400/250?1"><h3>Cyber Quest</h3><p>$29.99</p><button onclick="add('Cyber Quest',29.99)">Add</button></div>
+<div class="card"><img src="https://picsum.photos/400/250?2"><h3>Space Arena</h3><p>$19.99</p><button onclick="add('Space Arena',19.99)">Add</button></div>
+<div class="card"><img src="https://picsum.photos/400/250?3"><h3>Battle Legends</h3><p>$39.99</p><button onclick="add('Battle Legends',39.99)">Add</button></div>
+<div class="card"><img src="https://picsum.photos/400/250?4"><h3>Pixel Adventure</h3><p>$14.99</p><button onclick="add('Pixel Adventure',14.99)">Add</button></div>
+</section>
 
-    <input class="search" id="searchBar" onkeyup="search()" placeholder="Search products...">
+<section id="about" style="padding:30px">
+<h2>About</h2>
+<p>GameVault is a Steam-inspired storefront demo with cart and WhatsApp checkout.</p>
+</section>
 
-    <div class="grid">
-
-        <div class="card">
-            <h3>Razer Mouse</h3>
-            <p>$80</p>
-            <button class="btn" onclick="add('Razer Mouse',80)">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <h3>RGB Keyboard</h3>
-            <p>$120</p>
-            <button class="btn" onclick="add('RGB Keyboard',120)">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <h3>Gaming Headset</h3>
-            <p>$90</p>
-            <button class="btn" onclick="add('Headset',90)">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <h3>144Hz Monitor</h3>
-            <p>$300</p>
-            <button class="btn" onclick="add('Monitor',300)">Add to Cart</button>
-        </div>
-
-    </div>
-</div>
-
-<!-- ABOUT -->
-<div class="page" id="about">
-    <h1>About GameVault</h1>
-    <p>Premium gaming store for pro players.</p>
-</div>
-
-<!-- CART OVERLAY -->
-<div id="overlay" onclick="toggleCart()"></div>
-
-<!-- CART -->
-<div id="cartBox">
-
-    <h2>Your Cart</h2>
-
-    <div id="cartItems" style="flex:1;overflow-y:auto;"></div>
-
-    <h3>Total: $<span id="total">0</span></h3>
-
-    <button class="checkout" onclick="checkout()">
-        Checkout via WhatsApp
-    </button>
-
+<div id="cart">
+<h2>Cart</h2>
+<div id="items"></div>
+<h3>Total: $<span id="total">0</span></h3>
+<button onclick="checkout()">Checkout via WhatsApp</button>
+<button onclick="toggleCart()">Close</button>
 </div>
 
 <script>
+const phone="994558530802";
+let cart=[];
+let total=0;
 
-let cart = [];
-let total = 0;
-let cartOpen = false;
-
-const phone = "994558530802"; 
-
-function show(page){
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.getElementById(page).classList.add("active");
+function add(name,price){
+ cart.push({name,price});
+ total+=price;
+ renderCart();
 }
 
-function add(name, price){
-    cart.push({name, price});
-    total += price;
-    updateCart();
-}
-
-function updateCart(){
-    document.getElementById("count").innerText = cart.length;
-
-    let html = "";
-
-    cart.forEach((item, i) => {
-        html += `
-        <div class="item">
-            <div>
-                <b>${item.name}</b><br>
-                $${item.price}
-            </div>
-
-            <button onclick="removeItem(${i})" style="
-                background:red;
-                border:none;
-                color:white;
-                padding:5px 8px;
-                border-radius:6px;
-                cursor:pointer;
-            ">X</button>
-        </div>`;
-    });
-
-    document.getElementById("cartItems").innerHTML = html;
-    document.getElementById("total").innerText = total;
+function renderCart(){
+ document.getElementById('count').innerText=cart.length;
+ document.getElementById('total').innerText=total.toFixed(2);
+ document.getElementById('items').innerHTML=cart.map((i,idx)=>
+ `<p>${i.name} - $${i.price.toFixed(2)} <a href="#" onclick="removeItem(${idx})">X</a></p>`).join('');
 }
 
 function removeItem(i){
-    total -= cart[i].price;
-    cart.splice(i,1);
-    updateCart();
+ total-=cart[i].price;
+ cart.splice(i,1);
+ renderCart();
 }
 
 function toggleCart(){
-    let box = document.getElementById("cartBox");
-    let overlay = document.getElementById("overlay");
-
-    if(!cartOpen){
-        box.style.right = "0";
-        overlay.style.display = "block";
-        cartOpen = true;
-    } else {
-        box.style.right = "-360px";
-        overlay.style.display = "none";
-        cartOpen = false;
-    }
-}
-
-function search(){
-    let input = document.getElementById("searchBar").value.toLowerCase();
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach(c => {
-        c.style.display = c.innerText.toLowerCase().includes(input)
-        ? "block" : "none";
-    });
+ const c=document.getElementById('cart');
+ c.style.display=c.style.display==='block'?'none':'block';
 }
 
 function checkout(){
-    let msg = "GameVault Order:%0A";
-
-    cart.forEach(i => {
-        msg += "- " + i.name + " $" + i.price + "%0A";
-    });
-
-    msg += "%0ATotal: $" + total;
-
-    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg));
+ let msg='GameVault Order\n';
+ cart.forEach(i=>msg+=`${i.name} - $${i.price}\n`);
+ msg+=`Total: $${total.toFixed(2)}`;
+ window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
 }
 
+function searchGames(){
+ const q=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('.card').forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+ });
+}
 </script>
-
 </body>
 </html>

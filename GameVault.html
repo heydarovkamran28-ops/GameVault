@@ -3,102 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>GameVault</title>
+<title>GameVault Ultimate</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#171a21;color:#c7d5e0}
-nav{background:#1b2838;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
-nav a{color:#c7d5e0;text-decoration:none;margin-left:15px}
-.hero{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#1b2838,#2a475e)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding:20px}
-.card{background:#1b2838;border-radius:10px;padding:15px}
-.card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
-button{background:#66c0f4;border:none;padding:10px 14px;border-radius:6px;cursor:pointer}
-.search{margin:20px;padding:10px;width:min(400px,90%)}
-#cart{position:fixed;right:0;top:0;width:320px;height:100%;background:#111;padding:15px;overflow:auto;display:none}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b0f19;color:#fff;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at top,#1f3b70,transparent 50%);pointer-events:none}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,15,25,.85);backdrop-filter:blur(12px);display:flex;justify-content:space-between;padding:16px 30px;border-bottom:1px solid #243}
+nav a{color:#ddd;text-decoration:none;margin-left:18px}
+.hero{height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#09111f,#162a4d)}
+.hero h1{font-size:64px;margin:0;text-shadow:0 0 20px #4ea1ff;animation:glow 2s infinite alternate}
+@keyframes glow{from{text-shadow:0 0 10px #4ea1ff}to{text-shadow:0 0 30px #6cf}}
+.btn{background:linear-gradient(90deg,#4ea1ff,#7a5cff);border:none;color:#fff;padding:12px 20px;border-radius:10px;cursor:pointer}
+.search{display:block;margin:30px auto;padding:12px;width:min(500px,90%);border-radius:12px;border:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;padding:30px}
+.card{background:#151d2e;border:1px solid #26344f;border-radius:18px;overflow:hidden;transition:.3s}
+.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 15px 40px rgba(78,161,255,.25)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card-content{padding:15px}
+.badge{background:#4ea1ff;padding:4px 8px;border-radius:20px;font-size:12px}
+#cart{position:fixed;right:-380px;top:0;width:380px;height:100%;background:#101826;transition:.3s;padding:20px;z-index:200}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150}
+footer{text-align:center;padding:40px;color:#aaa}
 </style>
 </head>
 <body>
+<div id="overlay" onclick="toggleCart()"></div>
 <nav>
-<div><b>GameVault</b></div>
+<div><b>🎮 GameVault Ultimate</b></div>
 <div>
 <a href="#home">Home</a>
 <a href="#games">Games</a>
 <a href="#about">About</a>
-<a href="#" onclick="toggleCart()">Cart (<span id="count">0</span>)</a>
+<a href="#" onclick="toggleCart()">🛒 Cart (<span id="count">0</span>)</a>
 </div>
 </nav>
 
 <section class="hero" id="home">
-<h1>GameVault Store</h1>
-<p>Steam-inspired gaming storefront</p>
+<div>
+<h1>GAMEVAULT</h1>
+<p>Next‑Generation Gaming Marketplace</p>
+<button class="btn" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">Explore Games</button>
+</div>
 </section>
 
-<div style="text-align:center">
-<input class="search" id="search" placeholder="Search games..." onkeyup="searchGames()">
-</div>
+<input id="search" class="search" placeholder="Search games..." onkeyup="searchGames()">
 
 <section id="games" class="grid">
-<div class="card"><img src="https://picsum.photos/400/250?1"><h3>Cyber Quest</h3><p>$29.99</p><button onclick="add('Cyber Quest',29.99)">Add</button></div>
-<div class="card"><img src="https://picsum.photos/400/250?2"><h3>Space Arena</h3><p>$19.99</p><button onclick="add('Space Arena',19.99)">Add</button></div>
-<div class="card"><img src="https://picsum.photos/400/250?3"><h3>Battle Legends</h3><p>$39.99</p><button onclick="add('Battle Legends',39.99)">Add</button></div>
-<div class="card"><img src="https://picsum.photos/400/250?4"><h3>Pixel Adventure</h3><p>$14.99</p><button onclick="add('Pixel Adventure',14.99)">Add</button></div>
+<div class="card"><img src="https://picsum.photos/600/400?game1"><div class="card-content"><span class="badge">Top Seller</span><h3>Cyber Quest</h3><p>$29.99</p><button class="btn" onclick="add('Cyber Quest',29.99)">Add to Cart</button></div></div>
+<div class="card"><img src="https://picsum.photos/600/400?game2"><div class="card-content"><span class="badge">New</span><h3>Space Arena</h3><p>$19.99</p><button class="btn" onclick="add('Space Arena',19.99)">Add to Cart</button></div></div>
+<div class="card"><img src="https://picsum.photos/600/400?game3"><div class="card-content"><span class="badge">Popular</span><h3>Battle Legends</h3><p>$39.99</p><button class="btn" onclick="add('Battle Legends',39.99)">Add to Cart</button></div></div>
+<div class="card"><img src="https://picsum.photos/600/400?game4"><div class="card-content"><span class="badge">Indie</span><h3>Pixel Adventure</h3><p>$14.99</p><button class="btn" onclick="add('Pixel Adventure',14.99)">Add to Cart</button></div></div>
 </section>
 
-<section id="about" style="padding:30px">
-<h2>About</h2>
-<p>GameVault is a Steam-inspired storefront demo with cart and WhatsApp checkout.</p>
+<section id="about" style="padding:40px;text-align:center">
+<h2>About GameVault</h2>
+<p>Animated Steam-inspired storefront with cart, search and WhatsApp checkout.</p>
 </section>
 
 <div id="cart">
-<h2>Cart</h2>
+<h2>Your Cart</h2>
 <div id="items"></div>
-<h3>Total: $<span id="total">0</span></h3>
-<button onclick="checkout()">Checkout via WhatsApp</button>
-<button onclick="toggleCart()">Close</button>
+<h3>Total: $<span id="total">0.00</span></h3>
+<button class="btn" onclick="checkout()">WhatsApp Checkout</button>
 </div>
+
+<footer>© 2026 GameVault Ultimate</footer>
 
 <script>
 const phone="994558530802";
-let cart=[];
-let total=0;
+let cart=[],total=0,open=false;
 
-function add(name,price){
- cart.push({name,price});
- total+=price;
- renderCart();
-}
-
+function add(name,price){cart.push({name,price});total+=price;renderCart();}
 function renderCart(){
- document.getElementById('count').innerText=cart.length;
- document.getElementById('total').innerText=total.toFixed(2);
- document.getElementById('items').innerHTML=cart.map((i,idx)=>
- `<p>${i.name} - $${i.price.toFixed(2)} <a href="#" onclick="removeItem(${idx})">X</a></p>`).join('');
+count.textContent=cart.length;
+totalEl=document.getElementById('total');
+totalEl.textContent=total.toFixed(2);
+items.innerHTML=cart.map((i,n)=>`<p>${i.name} - $${i.price.toFixed(2)} <button onclick="removeItem(${n})">X</button></p>`).join('');
 }
-
-function removeItem(i){
- total-=cart[i].price;
- cart.splice(i,1);
- renderCart();
-}
-
+function removeItem(i){total-=cart[i].price;cart.splice(i,1);renderCart();}
 function toggleCart(){
- const c=document.getElementById('cart');
- c.style.display=c.style.display==='block'?'none':'block';
+open=!open;
+cart.style.right=open?'0':'-380px';
+overlay.style.display=open?'block':'none';
 }
-
 function checkout(){
- let msg='GameVault Order\n';
- cart.forEach(i=>msg+=`${i.name} - $${i.price}\n`);
- msg+=`Total: $${total.toFixed(2)}`;
- window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
+let msg='GameVault Order\n';
+cart.forEach(i=>msg+=i.name+' - $'+i.price+'\n');
+msg+='Total: $'+total.toFixed(2);
+window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
 }
-
 function searchGames(){
- const q=document.getElementById('search').value.toLowerCase();
- document.querySelectorAll('.card').forEach(c=>{
-  c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
- });
+let q=search.value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+});
 }
+const cart=document.getElementById('cart');
+const overlay=document.getElementById('overlay');
+const items=document.getElementById('items');
 </script>
 </body>
 </html>
